@@ -52,26 +52,59 @@ This tutorial outlines the implementation of on-premises Active Directory within
 </p>
 <br />
 
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+<p> 3) Install Active Directory<br>
+3.1) Login to DC-1 and install Active Directory Domain Services<br>
+  -Server Manager > Add Roles and Features > Install "Active Directory Domain Services"<br>
+3.2) Promote as a DC: Setup a new forest as mydomain.com (can be anything, just remember what it is)<br>
+3.3) Restart and then log back into DC-1 as user: mydomain.com\labuser<br>
 </p>
 <p>
-<img src="" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<br />
-
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-<p>
-<img src="" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/vQrGoyY.png" height="60%" width="60%" alt="Disk Sanitization Steps"/>
 </p>
 <br />
 
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+<p> 4) Create an Admin and Normal User Account in AD<br>
+4.1) In Active Directory Users and Computers (ADUC), create an Organizational Unit (OU) called “_EMPLOYEES”<br>
+4.2) Create a new OU named “_ADMINS”<br>
+4.3) Create a new employee named “Jane Doe” (same password) with the username of “jane_admin” under "_Admins" folder<br>
+4.4) Add jane_admin to the “Domain Admins” Security Group
+  -Right click Properties > Member Of > Add > <br>
+4.5) Log out/close the Remote Desktop connection to DC-1 and log back in as “mydomain.com\jane_admin”<br>
+4.6) User jane_admin as your admin account from now on<br>
 </p>
 <p>
-<img src="" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/So9JzHs.png" height="50%" width="50%" alt="Disk Sanitization Steps"/><br>
+<img src="https://i.imgur.com/5hzCMto.png" height="30%" width="30%" alt="Disk Sanitization Steps"/><br>
+<img src="https://i.imgur.com/Hgnn9kC.png" height="70%" width="70%" alt="Disk Sanitization Steps"/><br>
+<img src="https://i.imgur.com/tSHVqdw.png" height="40%" width="40%" alt="Disk Sanitization Steps"/>
+</p>
+<br />
+
+<p> 5) Join Client-1 to your domain (mydomain.com)<br>
+5.1) From the Azure Portal, set Client-1’s DNS settings to the DC-1’s Private IP address<br>
+5.2) From the Azure Portal, restart Client-1<br>
+5.3) Login to Client-1 (Remote Desktop) as the original local admin (labuser) and join it to the DC-1 (VM Will Restart)<br>
+  -Right Click Start > System > Rename this PC > Change > Domain:<br>
+5.4) Login to the Domain Controller (Remote Desktop) and verify Client-1 shows up in Active Directory Users and Computers (ADUC) inside the “Computers” container on the root of the domain<br>
+5.5) Create a new OU named “_CLIENTS” and drag Client-1 into there<br>
+</p>
+<p>
+<img src="https://i.imgur.com/NMfi8SP.png" height="50%" width="50%" alt="Disk Sanitization Steps"/><br>
+<img src="https://i.imgur.com/NHclC24.png" height="50%" width="50%" alt="Disk Sanitization Steps"/><br>
+<img src="https://i.imgur.com/hCB35Z6.png" height="80%" width="80%" alt="Disk Sanitization Steps"/><br>
+</p>
+<br />
+
+<p>6) Setup Remote Desktop for non-administrative users on Client-1<br>
+6.1) Log into Client-1 as mydomain.com\jane_admin and open system properties<br>
+6.2) Click “Remote Desktop”<br>
+6.3) Allow “domain users” access to remote desktop<br>
+  - System > Remote Desktop > Select users that can remotely access this PC > Add > Domain Users
+6.4) You can now log into Client-1 as a normal, non-administrative user now<br>
+6.5) Normally you’d want to do this with Group Policy that allows you to change MANY systems at once (maybe a future lab)<br>
+</p>
+<p>
+<img src="https://i.imgur.com/0EJnwKr.png" height="40%" width="40%" alt="Disk Sanitization Steps"/><br>
+<img src="https://i.imgur.com/2VVE0Nr.png" height="40%" width="40%" alt="Disk Sanitization Steps"/><br>
 </p>
 <br />
