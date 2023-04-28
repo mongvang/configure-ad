@@ -108,3 +108,17 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <img src="https://i.imgur.com/2VVE0Nr.png" height="40%" width="40%" alt="Disk Sanitization Steps"/><br>
 </p>
 <br />
+
+<p>7) Create a bunch of additional users and attempt to log into client-1 with one of the users<br>
+7.1) Login to DC-1 as jane_admin<br>
+7.2) Open PowerShell_ise as an administrator<br>
+7.3) Create a new File and paste the contents of the script into it (https://github.com/joshmadakor1/AD_PS/blob/master/Generate-Names-Create-Users.ps1)<br>
+7.4) Run the script and observe the accounts being created<br>
+7.5) When finished, open ADUC and observe the accounts in the appropriate OU<br>
+7.6) Attempt to log into Client-1 with one of the accounts (take note of the password in the script)<br>
+</p>
+<p>
+<img src="https://i.imgur.com/Yzpyl1z.png" height="40%" width="40%" alt="Disk Sanitization Steps"/><br>
+<img src="https://i.imgur.com/IT0FhPX.png" height="60%" width="60%" alt="Disk Sanitization Steps"/><br>
+</p>
+<br />
